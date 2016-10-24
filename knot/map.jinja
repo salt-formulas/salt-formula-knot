@@ -1,0 +1,29 @@
+
+{%- set source_engine = salt['pillar.get']('knot:server:source:engine') %}
+
+{%- load_yaml as base_defaults %}
+{%- if source_engine == 'git' %}
+Debian:
+  pkgs:
+  - python-psycopg2
+  dir:
+    base: /srv/knot/venv
+    home: /var/lib/knot
+    workspace: /srv/knot/workspace
+RedHat:
+  pkgs:
+  - python-psycopg2
+  dir:
+    base: /srv/knot/venv
+    home: /var/lib/knot
+    workspace: /srv/knot/workspace
+{%- else %}
+Debian:
+  pkgs:
+  - knot
+  dir:
+    base: /usr/lib/knot
+{%- endif %}
+{%- endload %}
+
+{%- set server = salt['grains.filter_by'](base_defaults, merge=salt['pillar.get']('knot:server')) %}
