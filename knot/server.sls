@@ -20,6 +20,7 @@ knot_service:
   service.running:
   - name: {{ server.service }}
   - enable: True
+  - reload: True
   - watch:
     - file: knot_config
 
