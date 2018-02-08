@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-knot.git
 
 Package: salt-formula-knot
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: knot salt formula
  Install and configure knot system.
