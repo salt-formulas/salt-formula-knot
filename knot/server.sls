@@ -16,6 +16,28 @@ knot_config:
   - require:
     - pkg: knot_packages
 
+{%- if server.zone is defined %}
+{%- for zone_name, zone in server.zone.items() %}
+{%- if zone.records is defined %}
+
+{{ zone_name }}_zone:
+  file.managed:
+  - name: {{ zone.storage|default('/var/lib/knot') }}/{{ zone_file|default(zone_name + ".zone") }}
+  - template: jinja
+  - source: salt://knot/files/zone
+  - user: knot
+  - group: knot
+  - mode: 0600
+  - require:
+    - file: knot_config
+  - context:
+    zone_name: {{ zone_name }}
+    soa: {{ zone.soa }}
+    records: {{ zone.records }}
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+
 knot_service:
   service.running:
   - name: {{ server.service }}
