@@ -2,8 +2,12 @@
 {%- load_yaml as base_defaults %}
 Debian:
   pkgs:
-  - knot
   - dnsutils
+  - knot
+
+'*':
+  pkgs:
+  - knot
   bind:
     ipv4:
       address: 0.0.0.0

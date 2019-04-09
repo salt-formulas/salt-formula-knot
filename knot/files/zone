@@ -1,0 +1,16 @@
+; This file is managed by Salt
+; Do not edit manually!
+
+$ORIGIN {{ zone_name }}.
+$TTL {{ ttl|default('3600') }}
+
+@	SOA	{{ soa['master'] }}. {{ soa['email'] }}. (
+		{{ soa.serial                 }}	; serial
+		{{ soa.refresh|default('6h')  }}	; refresh
+		{{ soa.retry|default('1h')    }}	; retry
+		{{ soa.expire|default('6h')   }}	; expire
+		{{ soa.minimum|default('6h')  }})		; minimum
+
+{%- for rec in records %}
+{{ rec.name }}	{{ rec.ttl|default('') }}	{{ rec.type }}	{{ rec.content }}
+{%- endfor %}
