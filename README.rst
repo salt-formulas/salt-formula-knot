@@ -43,7 +43,17 @@ Server dns zones
           example2.com:
             semantic-checks: False
             template: default
-
+            soa:
+              email: admin@example1.com
+              serial: 20190409001
+              master: ns.example2.com
+            records:
+              - name: mail
+                type: A
+                content: 192.168.1.1
+              - name: '@'
+                type: MX
+                content: '10 mail'
 
 Read more
 =========
