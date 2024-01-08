@@ -34,6 +34,13 @@ knot_config:
     zone_name: {{ zone_name }}
     soa: {{ zone.soa }}
     records: {{ zone.records }}
+
+{{ zone_name }}_zone_reload:
+  cmd.run:
+  - name: knotc zone-check {{ zone_name }} && knotc zone-reload {{ zone_name }}
+  - watch:
+    - file: {{ zone_name }}_zone
+
 {%- endif %}
 {%- endfor %}
 {%- endif %}
