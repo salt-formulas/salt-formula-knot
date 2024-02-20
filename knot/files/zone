@@ -5,7 +5,7 @@ $ORIGIN {{ zone_name }}.
 $TTL {{ ttl|default('3600') }}
 
 @	SOA	{{ soa['master'] }}. {{ soa['email'] }}. (
-		{{ soa.serial                 }}	; serial
+		{{ soa.serial|default(1)      }}	; serial
 		{{ soa.refresh|default('6h')  }}	; refresh
 		{{ soa.retry|default('1h')    }}	; retry
 		{{ soa.expire|default('6h')   }}	; expire
